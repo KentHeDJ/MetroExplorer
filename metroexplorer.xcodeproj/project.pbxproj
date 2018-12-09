@@ -19,6 +19,8 @@
 		37E4BA7F21BD101600EF4BFC /* MetroStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA7E21BD101600EF4BFC /* MetroStation.swift */; };
 		37E4BA8121BD14F300EF4BFC /* YelpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8021BD14F300EF4BFC /* YelpResponse.swift */; };
 		37E4BA8421BD194F00EF4BFC /* FetchLandmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8321BD194F00EF4BFC /* FetchLandmarksManager.swift */; };
+		37E4BA8621BDB15400EF4BFC /* LandmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8521BDB15400EF4BFC /* LandmarkTableViewCell.swift */; };
+		37E4BA8821BDC44D00EF4BFC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8721BDC44D00EF4BFC /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		37E4BA7E21BD101600EF4BFC /* MetroStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStation.swift; sourceTree = "<group>"; };
 		37E4BA8021BD14F300EF4BFC /* YelpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpResponse.swift; sourceTree = "<group>"; };
 		37E4BA8321BD194F00EF4BFC /* FetchLandmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLandmarksManager.swift; sourceTree = "<group>"; };
+		37E4BA8521BDB15400EF4BFC /* LandmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkTableViewCell.swift; sourceTree = "<group>"; };
+		37E4BA8721BDC44D00EF4BFC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 				37D0D78621AC8D060059388E /* Assets.xcassets */,
 				37D0D78821AC8D060059388E /* LaunchScreen.storyboard */,
 				37D0D78B21AC8D060059388E /* Info.plist */,
+				37E4BA8521BDB15400EF4BFC /* LandmarkTableViewCell.swift */,
+				37E4BA8721BDC44D00EF4BFC /* Extensions.swift */,
 			);
 			path = metroexplorer;
 			sourceTree = "<group>";
@@ -183,11 +189,13 @@
 				37D0D78221AC8D040059388E /* ViewController.swift in Sources */,
 				37E4BA7F21BD101600EF4BFC /* MetroStation.swift in Sources */,
 				37E4BA7D21BCD3AF00EF4BFC /* LandmarksTableViewController.swift in Sources */,
+				37E4BA8621BDB15400EF4BFC /* LandmarkTableViewCell.swift in Sources */,
 				37E4BA8421BD194F00EF4BFC /* FetchLandmarksManager.swift in Sources */,
 				37E4BA7B21BCCD5000EF4BFC /* MetroStattionsTableViewController.swift in Sources */,
 				37E4BA7921BBCC8600EF4BFC /* PersistenceManager.swift in Sources */,
 				37D0D78021AC8D040059388E /* AppDelegate.swift in Sources */,
 				37E4BA8121BD14F300EF4BFC /* YelpResponse.swift in Sources */,
+				37E4BA8821BDC44D00EF4BFC /* Extensions.swift in Sources */,
 				37E4BA7721BBCA0200EF4BFC /* Landmark.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

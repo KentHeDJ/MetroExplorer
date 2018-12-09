@@ -24,9 +24,9 @@ struct Businesses: Codable {
     let imageUrl: URL
     let isClosed: Bool
     let url: URL
-    let reviewCount: Int
+    let reviewCount: Double
     let categories: [Categories]
-    let rating: Int
+    let rating: Double
     let coordinates: Coordinates
     //let transactions: [Any] // TODO: Please provide a codable type, because Any isn't one.
     let location: Location

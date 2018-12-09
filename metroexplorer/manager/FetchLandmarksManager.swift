@@ -8,7 +8,14 @@
 
 import Foundation
 
+protocol  FetchLankmarksDelegate {
+    func landmarksFound(_ landmarks: [Landmark])
+    func landmarksNotFound()
+}
+
 class FetchLandmarksManager {
+    
+    var delegate: FetchLankmarksDelegate?
     
     func fetchLandmarks() {
         var urlComponents = URLComponents(string: "https://api.yelp.com/v3/businesses/search")!
@@ -27,9 +34,55 @@ class FetchLandmarksManager {
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             //PUT CODE HERE TO RUN UPON COMPLETION
             print("request complete")
-//            print(data)
-//            print(response)
-//            print(error)
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                print("response is nil or 200")
+                
+                self.delegate?.landmarksNotFound()
+                
+                return
+            }
+            
+            //HERE - response is NOT nil and IS 200
+            
+            guard let data = data else {
+                print("data is nil")
+                
+                self.delegate?.landmarksNotFound()
+                
+                return
+            }
+            
+            //HERE - data is NOT nil
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let yelpResponse = try decoder.decode(YelpResponse.self, from: data)
+                
+                //HERE - decoding was successful
+                
+                var landmarks = [Landmark]()
+                
+                for business in yelpResponse.businesses {
+                    //let name = business.name
+                    let address = business.location.displayAddress.joined(separator: " ")
+                    
+                    let landmark = Landmark(name: business.name, image: business.imageUrl, address: address, rating: business.rating)
+                    
+                    landmarks.append(landmark)
+                }
+                
+                print(landmarks)
+                
+                self.delegate?.landmarksFound(landmarks)
+                
+            } catch let error {
+                print("codable fail - bad data format")
+                print(error.localizedDescription)
+                
+                self.delegate?.landmarksNotFound()
+            }
             
         }
         

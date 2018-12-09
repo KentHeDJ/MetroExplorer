@@ -72,13 +72,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="landmarkCell" id="bni-zR-9zB">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="landmarkCell" id="bni-zR-9zB" customClass="LandmarkTableViewCell" customModule="metroexplorer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bni-zR-9zB" id="EVf-Wy-K4e">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="IUl-S9-Cam">
+                                            <rect key="frame" x="10" y="10" width="295" height="23.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Awesome Landmark" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wm4-Oo-Enf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="295" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address goes here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9h5-Eu-VC7">
+                                                    <rect key="frame" x="0.0" y="12" width="295" height="11.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="metro" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-hg-PIt">
+                                            <rect key="frame" x="315" y="10" width="50" height="23.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="F2x-8o-8PK"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="IUl-S9-Cam" secondAttribute="bottom" constant="10" id="CbN-QL-2hH"/>
+                                        <constraint firstItem="dJc-hg-PIt" firstAttribute="leading" secondItem="IUl-S9-Cam" secondAttribute="trailing" constant="10" id="DRB-4t-WfM"/>
+                                        <constraint firstItem="IUl-S9-Cam" firstAttribute="leading" secondItem="EVf-Wy-K4e" secondAttribute="leading" constant="10" id="GWf-8v-bOf"/>
+                                        <constraint firstAttribute="bottom" secondItem="dJc-hg-PIt" secondAttribute="bottom" constant="10" id="bx0-bg-r01"/>
+                                        <constraint firstItem="IUl-S9-Cam" firstAttribute="top" secondItem="EVf-Wy-K4e" secondAttribute="top" constant="10" id="pOe-Cd-PlZ"/>
+                                        <constraint firstAttribute="trailing" secondItem="dJc-hg-PIt" secondAttribute="trailing" constant="10" id="q8Q-Wr-mWT"/>
+                                        <constraint firstItem="dJc-hg-PIt" firstAttribute="top" secondItem="EVf-Wy-K4e" secondAttribute="top" constant="10" id="zUI-wS-zwn"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="landmarkAddressLabel" destination="9h5-Eu-VC7" id="ulg-mY-AUf"/>
+                                    <outlet property="landmarkImage" destination="dJc-hg-PIt" id="9Rc-cr-gdm"/>
+                                    <outlet property="landmarkNameLabel" destination="Wm4-Oo-Enf" id="gkE-1v-Ev3"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -89,7 +128,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3s9-gT-f1H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2036" y="-369"/>
+            <point key="canvasLocation" x="2036" y="-369.26536731634184"/>
         </scene>
         <!--Metro Stattions Table View Controller-->
         <scene sceneID="e2C-JW-auh">

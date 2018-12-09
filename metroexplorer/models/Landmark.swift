@@ -10,7 +10,7 @@ import Foundation
 
 struct Landmark: Codable {
     let name: String
-    let image: String
+    let image: URL
     let address: String
-    let rating: String
+    let rating: Double
 }
