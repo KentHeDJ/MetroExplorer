@@ -8,16 +8,9 @@
 
 import Foundation
 
-class Landmark: Codable {
+struct Landmark: Codable {
     let name: String
     let image: String
     let address: String
     let rating: String
-    
-    init(name: String, image: String, address: String, rating: String) {
-        self.name = name
-        self.image = image
-        self.address = address
-        self.rating = rating
-    }
 }
