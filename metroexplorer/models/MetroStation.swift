@@ -10,5 +10,6 @@ import Foundation
 
 struct MetroStation {
     let name: String
-    let line: String
+    let latitude: Double
+    let longtitude: Double
 }

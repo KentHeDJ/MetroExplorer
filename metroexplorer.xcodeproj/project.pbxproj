@@ -21,6 +21,10 @@
 		37E4BA8421BD194F00EF4BFC /* FetchLandmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8321BD194F00EF4BFC /* FetchLandmarksManager.swift */; };
 		37E4BA8621BDB15400EF4BFC /* LandmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8521BDB15400EF4BFC /* LandmarkTableViewCell.swift */; };
 		37E4BA8821BDC44D00EF4BFC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8721BDC44D00EF4BFC /* Extensions.swift */; };
+		37E4BA8A21BDD0ED00EF4BFC /* WMATAResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8921BDD0ED00EF4BFC /* WMATAResponse.swift */; };
+		37E4BA8C21BDD15E00EF4BFC /* FetchMetroStationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8B21BDD15E00EF4BFC /* FetchMetroStationsManager.swift */; };
+		37E4BA9021BDDB7100EF4BFC /* MetroStationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA8F21BDDB7100EF4BFC /* MetroStationTableViewCell.swift */; };
+		37E4BA9421BDE15C00EF4BFC /* LandmarkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E4BA9321BDE15C00EF4BFC /* LandmarkDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		37E4BA8321BD194F00EF4BFC /* FetchLandmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchLandmarksManager.swift; sourceTree = "<group>"; };
 		37E4BA8521BDB15400EF4BFC /* LandmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkTableViewCell.swift; sourceTree = "<group>"; };
 		37E4BA8721BDC44D00EF4BFC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		37E4BA8921BDD0ED00EF4BFC /* WMATAResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMATAResponse.swift; sourceTree = "<group>"; };
+		37E4BA8B21BDD15E00EF4BFC /* FetchMetroStationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMetroStationsManager.swift; sourceTree = "<group>"; };
+		37E4BA8F21BDDB7100EF4BFC /* MetroStationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroStationTableViewCell.swift; sourceTree = "<group>"; };
+		37E4BA9321BDE15C00EF4BFC /* LandmarkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +90,7 @@
 				37D0D78B21AC8D060059388E /* Info.plist */,
 				37E4BA8521BDB15400EF4BFC /* LandmarkTableViewCell.swift */,
 				37E4BA8721BDC44D00EF4BFC /* Extensions.swift */,
+				37E4BA8F21BDDB7100EF4BFC /* MetroStationTableViewCell.swift */,
 			);
 			path = metroexplorer;
 			sourceTree = "<group>";
@@ -92,6 +101,7 @@
 				37D0D78121AC8D040059388E /* ViewController.swift */,
 				37E4BA7A21BCCD5000EF4BFC /* MetroStattionsTableViewController.swift */,
 				37E4BA7C21BCD3AF00EF4BFC /* LandmarksTableViewController.swift */,
+				37E4BA9321BDE15C00EF4BFC /* LandmarkDetailViewController.swift */,
 			);
 			path = "view controllers";
 			sourceTree = "<group>";
@@ -102,6 +112,7 @@
 				37E4BA7621BBCA0200EF4BFC /* Landmark.swift */,
 				37E4BA7E21BD101600EF4BFC /* MetroStation.swift */,
 				37E4BA8021BD14F300EF4BFC /* YelpResponse.swift */,
+				37E4BA8921BDD0ED00EF4BFC /* WMATAResponse.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -111,6 +122,7 @@
 			children = (
 				37E4BA7821BBCC8600EF4BFC /* PersistenceManager.swift */,
 				37E4BA8321BD194F00EF4BFC /* FetchLandmarksManager.swift */,
+				37E4BA8B21BDD15E00EF4BFC /* FetchMetroStationsManager.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -186,10 +198,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37E4BA9421BDE15C00EF4BFC /* LandmarkDetailViewController.swift in Sources */,
 				37D0D78221AC8D040059388E /* ViewController.swift in Sources */,
 				37E4BA7F21BD101600EF4BFC /* MetroStation.swift in Sources */,
 				37E4BA7D21BCD3AF00EF4BFC /* LandmarksTableViewController.swift in Sources */,
 				37E4BA8621BDB15400EF4BFC /* LandmarkTableViewCell.swift in Sources */,
+				37E4BA8C21BDD15E00EF4BFC /* FetchMetroStationsManager.swift in Sources */,
 				37E4BA8421BD194F00EF4BFC /* FetchLandmarksManager.swift in Sources */,
 				37E4BA7B21BCCD5000EF4BFC /* MetroStattionsTableViewController.swift in Sources */,
 				37E4BA7921BBCC8600EF4BFC /* PersistenceManager.swift in Sources */,
@@ -197,6 +211,8 @@
 				37E4BA8121BD14F300EF4BFC /* YelpResponse.swift in Sources */,
 				37E4BA8821BDC44D00EF4BFC /* Extensions.swift in Sources */,
 				37E4BA7721BBCA0200EF4BFC /* Landmark.swift in Sources */,
+				37E4BA9021BDDB7100EF4BFC /* MetroStationTableViewCell.swift in Sources */,
+				37E4BA8A21BDD0ED00EF4BFC /* WMATAResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

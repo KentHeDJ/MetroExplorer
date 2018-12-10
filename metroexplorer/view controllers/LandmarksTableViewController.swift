@@ -10,6 +10,8 @@ import UIKit
 
 class LandmarksTableViewController: UITableViewController {
     
+    var index = 1
+    
     var landmarks = [Landmark]() {
         didSet {
             tableView.reloadData()
@@ -51,6 +53,26 @@ class LandmarksTableViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        index = indexPath.row
+        
+        print("landmark detail cell click")
+        performSegue(withIdentifier: "landmarkDetailSegue", sender: self)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is LandmarkDetailViewController
+        {
+            let vc = segue.destination as? LandmarkDetailViewController
+            vc?.name = landmarks[index].name
+            vc?.address = landmarks[index].address
+            vc?.rating = landmarks[index].rating
+            vc?.image = landmarks[index].image
+        }
+    }
+    
 
 
 }
