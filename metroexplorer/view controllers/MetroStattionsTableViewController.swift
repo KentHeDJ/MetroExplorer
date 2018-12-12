@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class MetroStattionsTableViewController: UITableViewController {
     
@@ -14,9 +15,7 @@ class MetroStattionsTableViewController: UITableViewController {
     
     var metroStations = [MetroStation]() {
         didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
 
@@ -25,6 +24,9 @@ class MetroStattionsTableViewController: UITableViewController {
         
         let fetchMetroStationsManage = FetchMetroStationsManager()
         fetchMetroStationsManage.delegate = self
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
         fetchMetroStationsManage.fetchMetroStations()
 
     }
@@ -62,7 +64,8 @@ class MetroStattionsTableViewController: UITableViewController {
         {
             let vc = segue.destination as? LandmarksTableViewController
             vc?.latitude = metroStations[index].latitude
-            vc?.longitude = metroStations[index].longtitude
+            vc?.longitude = metroStations[index].longitude
+            vc?.fromMetro = true
         }
     }
 
@@ -71,10 +74,19 @@ class MetroStattionsTableViewController: UITableViewController {
 extension MetroStattionsTableViewController: FetchMetroStationsDelegate {
     func metroStationsFound(_ metroStations: [MetroStation]) {
         print("metro stations found - here they are in the controller")
-        self.metroStations = metroStations
+        
+        DispatchQueue.main.async {
+            self.metroStations = metroStations
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
     
     func metroStationsNotFound() {
         print("no metro stations found")
+        
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
 }

@@ -63,9 +63,9 @@ class FetchMetroStationsManager {
                     
                     let name = station.Name
                     let latitude = station.Lat
-                    let longtitude = station.Lon
+                    let longitude = station.Lon
                     
-                    let metroStation = MetroStation(name: name, latitude: latitude, longtitude: longtitude)
+                    let metroStation = MetroStation(name: name, latitude: latitude, longitude: longitude)
                     
                     metroStations.append(metroStation)
                 }

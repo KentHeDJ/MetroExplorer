@@ -7,19 +7,21 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class LandmarksTableViewController: UITableViewController {
+    let fetchLandmarksManager = FetchLandmarksManager()
+    let locationDetector = LocationDetector()
     
     var index = 1
     var flag:Bool = false
-    var latitude: Double = 34.900599
-    var longitude: Double = -79.050273
+    var latitude: Double = 0
+    var longitude: Double = 0
+    var fromMetro:Bool = false
     
     var landmarks = [Landmark]() {
         didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
     
@@ -28,10 +30,21 @@ class LandmarksTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fetchLandmarksManager = FetchLandmarksManager()
         fetchLandmarksManager.delegate = self
-        fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
-
+        locationDetector.delegate = self
+        
+        if fromMetro == true {
+            fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
+        }
+        else {
+            fetchLandmarks()
+        }
+        
+    }
+    
+    private func fetchLandmarks() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        locationDetector.findLocation()
     }
 
     // MARK: - Table view data source
@@ -63,13 +76,21 @@ class LandmarksTableViewController: UITableViewController {
             
             cell.landmarkNameLabel.text = favoritesLandmark.name
             cell.landmarkAddressLabel.text = favoritesLandmark.address
-            cell.landmarkImage.load(url: favoritesLandmark.image)
+            
+            if let imageUrlString = favoritesLandmark.image, let url = URL(string: imageUrlString) {
+                cell.landmarkImage.load(url: url)
+            }
+            
         } else {
             let landmark = landmarks[indexPath.row]
             
             cell.landmarkNameLabel.text = landmark.name
             cell.landmarkAddressLabel.text = landmark.address
-            cell.landmarkImage.load(url: landmark.image)
+            
+            if let imageUrlString = landmark.image, let url = URL(string: imageUrlString) {
+                cell.landmarkImage.load(url: url)
+            }
+            
         }
 
         return cell
@@ -91,29 +112,70 @@ class LandmarksTableViewController: UITableViewController {
             vc?.name = landmarks[index].name
             vc?.address = landmarks[index].address
             vc?.rating = landmarks[index].rating
-            vc?.image = landmarks[index].image
+            vc?.image = landmarks[index].image ?? ""
         } else {
             let vc = segue.destination as? LandmarkDetailViewController
             vc?.id = landmarks[index].id
             vc?.name = favoritesLandmarks[index].name
             vc?.address = favoritesLandmarks[index].address
             vc?.rating = favoritesLandmarks[index].rating
-            vc?.image = favoritesLandmarks[index].image
+            vc?.image = favoritesLandmarks[index].image ?? ""
         }
     }
+
+}
+
+extension LandmarksTableViewController: LocationDetectorDelegate {
+    func locationDetected(latitude: Double, longitude: Double) {
+        fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
+    }
     
-
-
+    func locationNotDetected() {
+        print("no location found")
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            //TODO: Show a AlertController with error
+        }
+    }
 }
 
 extension LandmarksTableViewController: FetchLankmarksDelegate {
     func landmarksFound(_ landmarks: [Landmark]) {
         print("landmarks found - here they are in the controller")
-        self.landmarks = landmarks
-        //tableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.landmarks = landmarks
+            
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
     
-    func landmarksNotFound() {
-        print("no landmarks found")
+    func landmarksNotFound(reason: FetchLandmarksManager.FailureReason) {
+        
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            let alertController = UIAlertController(title: "Problem fetching landmarks", message: reason.rawValue, preferredStyle: .alert)
+            
+            switch(reason) {
+            case .noResponse:
+                let retryAction = UIAlertAction(title: "Retry", style: .default, handler: { (action) in
+                    self.fetchLandmarks()
+                })
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler:nil)
+                
+                alertController.addAction(cancelAction)
+                alertController.addAction(retryAction)
+                
+            case .non200Response, .noData, .badData:
+                let okayAction = UIAlertAction(title: "Okay", style: .default, handler:nil)
+                
+                alertController.addAction(okayAction)
+            }
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

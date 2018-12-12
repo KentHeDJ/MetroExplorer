@@ -21,7 +21,7 @@ struct Businesses: Codable {
     let id: String
     let alias: String
     let name: String
-    let imageUrl: URL
+    let imageUrl: String
     let isClosed: Bool
     let url: URL
     let reviewCount: Double
@@ -30,8 +30,8 @@ struct Businesses: Codable {
     let coordinates: Coordinates
     //let transactions: [Any] // TODO: Please provide a codable type, because Any isn't one.
     let location: Location
-    let phone: String
-    let displayPhone: String
+    let phone: String?
+    let displayPhone: String?
     let distance: Double
     
     private enum CodingKeys: String, CodingKey {
@@ -62,8 +62,8 @@ struct Categories: Codable {
 
 struct Coordinates: Codable {
     
-    let latitude: Double
-    let longitude: Double
+    let latitude: Double?
+    let longitude: Double?
     
 }
 
@@ -73,7 +73,7 @@ struct Location: Codable {
     let address2: String?
     let address3: String?
     let city: String
-    let zipCode: String
+    let zipCode: String?
     let country: String
     let state: String
     let displayAddress: [String]
@@ -98,8 +98,8 @@ struct Region: Codable {
 
 struct Center: Codable {
     
-    let longitude: Double
-    let latitude: Double
+    let longitude: Double?
+    let latitude: Double?
     
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class LandmarkDetailViewController: UIViewController {
     
-    var image:URL = URL(fileURLWithPath: "")
+    var image:String? = nil
     var id:String = ""
     var name:String = ""
     var address:String = ""
@@ -27,7 +27,11 @@ class LandmarkDetailViewController: UIViewController {
         landmarkNameLabel?.text = name
         landmarkAddressLabel?.text = address
         landmarkRatingLabel?.text = String(rating)
-        landmarkImage.load(url: image)
+        
+        if let imageUrlString = image, let url = URL(string: imageUrlString) {
+            landmarkImage.load(url: url)
+        }
+        
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {

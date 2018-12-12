@@ -11,7 +11,7 @@ import Foundation
 struct Landmark: Codable {
     let id: String
     let name: String
-    let image: URL
+    let image: String?
     let address: String
     let rating: Double
 }
