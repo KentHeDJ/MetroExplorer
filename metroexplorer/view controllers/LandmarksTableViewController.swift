@@ -11,19 +11,27 @@ import UIKit
 class LandmarksTableViewController: UITableViewController {
     
     var index = 1
+    var flag:Bool = false
+    var latitude: Double = 34.900599
+    var longitude: Double = -79.050273
     
     var landmarks = [Landmark]() {
         didSet {
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
+    
+    let favoritesLandmarks = PersistenceManager.sharedInstance.fetchLandmarks()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let fetchLandmarksManager = FetchLandmarksManager()
         fetchLandmarksManager.delegate = self
-        fetchLandmarksManager.fetchLandmarks()
+        fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
+
     }
 
     // MARK: - Table view data source
@@ -35,7 +43,12 @@ class LandmarksTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return landmarks.count
+        if flag == false {
+            return landmarks.count
+        } else {
+            return favoritesLandmarks.count
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -45,11 +58,19 @@ class LandmarksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "landmarkCell", for: indexPath) as! LandmarkTableViewCell
         
-        let landmark = landmarks[indexPath.row]
-
-        cell.landmarkNameLabel.text = landmark.name
-        cell.landmarkAddressLabel.text = landmark.address
-        cell.landmarkImage.load(url: landmark.image)
+        if flag == true {
+            let favoritesLandmark = favoritesLandmarks[indexPath.row]
+            
+            cell.landmarkNameLabel.text = favoritesLandmark.name
+            cell.landmarkAddressLabel.text = favoritesLandmark.address
+            cell.landmarkImage.load(url: favoritesLandmark.image)
+        } else {
+            let landmark = landmarks[indexPath.row]
+            
+            cell.landmarkNameLabel.text = landmark.name
+            cell.landmarkAddressLabel.text = landmark.address
+            cell.landmarkImage.load(url: landmark.image)
+        }
 
         return cell
     }
@@ -63,13 +84,21 @@ class LandmarksTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is LandmarkDetailViewController
+        if segue.destination is LandmarkDetailViewController && flag == false
         {
             let vc = segue.destination as? LandmarkDetailViewController
+            vc?.id = landmarks[index].id
             vc?.name = landmarks[index].name
             vc?.address = landmarks[index].address
             vc?.rating = landmarks[index].rating
             vc?.image = landmarks[index].image
+        } else {
+            let vc = segue.destination as? LandmarkDetailViewController
+            vc?.id = landmarks[index].id
+            vc?.name = favoritesLandmarks[index].name
+            vc?.address = favoritesLandmarks[index].address
+            vc?.rating = favoritesLandmarks[index].rating
+            vc?.image = favoritesLandmarks[index].image
         }
     }
     

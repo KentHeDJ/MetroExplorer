@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MetroStation {
+struct MetroStation: Codable {
     let name: String
     let latitude: Double
     let longtitude: Double

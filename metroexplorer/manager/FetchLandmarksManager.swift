@@ -17,12 +17,14 @@ class FetchLandmarksManager {
     
     var delegate: FetchLankmarksDelegate?
     
-    func fetchLandmarks() {
+    func fetchLandmarks(latitude: Double, longitude: Double) {
         var urlComponents = URLComponents(string: "https://api.yelp.com/v3/businesses/search")!
         
         urlComponents.queryItems = [
             URLQueryItem(name: "term", value: "landmarks"),
             URLQueryItem(name: "location", value: "DC"),
+//            URLQueryItem(name: "latitude", value: "\(latitude)"),
+//            URLQueryItem(name: "longitude", value: "\(longitude)")
         ]
         
         let url = urlComponents.url!
@@ -68,7 +70,7 @@ class FetchLandmarksManager {
                     //let name = business.name
                     let address = business.location.displayAddress.joined(separator: " ")
                     
-                    let landmark = Landmark(name: business.name, image: business.imageUrl, address: address, rating: business.rating)
+                    let landmark = Landmark(id: business.id, name: business.name, image: business.imageUrl, address: address, rating: business.rating)
                     
                     landmarks.append(landmark)
                 }

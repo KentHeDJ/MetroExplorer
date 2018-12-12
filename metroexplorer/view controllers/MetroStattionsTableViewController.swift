@@ -10,9 +10,13 @@ import UIKit
 
 class MetroStattionsTableViewController: UITableViewController {
     
+    var index = 1
+    
     var metroStations = [MetroStation]() {
         didSet {
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -45,6 +49,21 @@ class MetroStattionsTableViewController: UITableViewController {
         cell.metroStationNameLabel.text = metroStation.name
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        index = indexPath.row
+        print("metro station click")
+        performSegue(withIdentifier: "landmarkSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is LandmarksTableViewController
+        {
+            let vc = segue.destination as? LandmarksTableViewController
+            vc?.latitude = metroStations[index].latitude
+            vc?.longitude = metroStations[index].longtitude
+        }
     }
 
 }

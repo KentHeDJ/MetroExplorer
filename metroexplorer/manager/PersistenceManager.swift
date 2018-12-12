@@ -36,4 +36,17 @@ class PersistenceManager {
             return [Landmark]()
         }
     }
+    
+    func deleteLandmark(id: String){
+        let userDefaults = UserDefaults.standard
+        
+        var landmarks = fetchLandmarks()
+        
+//        for lm in landmarks {
+//            if lm.id == id {
+//                let index1 = landmarks.index { $0.id == id}
+//            }
+//        }
+//        landmarks.remove(at: index1)
+    }
 }

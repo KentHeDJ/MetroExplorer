@@ -9,6 +9,7 @@
 import Foundation
 
 struct Landmark: Codable {
+    let id: String
     let name: String
     let image: URL
     let address: String

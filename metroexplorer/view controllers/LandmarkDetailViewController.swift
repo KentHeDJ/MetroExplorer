@@ -11,6 +11,7 @@ import UIKit
 class LandmarkDetailViewController: UIViewController {
     
     var image:URL = URL(fileURLWithPath: "")
+    var id:String = ""
     var name:String = ""
     var address:String = ""
     var rating:Double = 0
@@ -19,6 +20,7 @@ class LandmarkDetailViewController: UIViewController {
     @IBOutlet weak var landmarkNameLabel: UILabel!
     @IBOutlet weak var landmarkAddressLabel: UILabel!
     @IBOutlet weak var landmarkRatingLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,5 +30,23 @@ class LandmarkDetailViewController: UIViewController {
         landmarkImage.load(url: image)
     }
     
-
+    @IBAction func shareButtonPressed(_ sender: Any) {
+        
+        let shareText = "Hello! Please check this wonderful landmark: \n Name: \(name) \n Address: \(address) \n Rating: \(rating)!!!"
+        
+        let activityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        let landmark = Landmark(id: id, name: name, image: image, address: address, rating: rating)
+        PersistenceManager.sharedInstance.saveLandmark(landmark: landmark)
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        let landmark = Landmark(id: id, name: name, image: image, address: address, rating: rating)
+        PersistenceManager.sharedInstance.deleteLandmark(id: landmark.id)
+    }
+    
 }

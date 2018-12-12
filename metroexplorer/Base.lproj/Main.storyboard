@@ -26,7 +26,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Nearest"/>
                                 <connections>
-                                    <segue destination="N5K-Pw-ISE" kind="show" id="3lx-tT-wOQ"/>
+                                    <action selector="nearestButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fKY-48-Tgp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GfW-GG-dWN">
@@ -41,6 +41,9 @@
                                 <rect key="frame" x="138.5" y="450.5" width="98" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Favorites"/>
+                                <connections>
+                                    <action selector="favoritesButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iyw-FQ-fsy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.80141250882630555" blue="0.58535849736305834" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -58,6 +61,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Metro Explorer" id="Z3l-PH-H3l"/>
+                    <connections>
+                        <segue destination="N5K-Pw-ISE" kind="show" identifier="favoritesSegue" id="Blp-i9-xLH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -133,7 +139,7 @@
             </objects>
             <point key="canvasLocation" x="2036" y="-369.26536731634184"/>
         </scene>
-        <!--Landmark Detail View Controller-->
+        <!--Detail-->
         <scene sceneID="2ij-7t-oos">
             <objects>
                 <viewController id="OBy-iW-M87" customClass="LandmarkDetailViewController" customModule="metroexplorer" customModuleProvider="target" sceneMemberID="viewController">
@@ -181,6 +187,25 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ihr-q6-mKI"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Detail" id="KPT-Rm-JgQ">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="br2-Sw-uxm">
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="OBy-iW-M87" id="wOa-Fr-O0l"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="Sa9-JA-s9A">
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="OBy-iW-M87" id="Zy8-ca-UIe"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="save" id="4FJ-Pd-lNL">
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="OBy-iW-M87" id="wza-gm-LyC"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="landmarkAddressLabel" destination="EYg-fw-uVn" id="Wcb-zr-S16"/>
                         <outlet property="landmarkImage" destination="iXt-T2-i1X" id="U53-Cj-cMd"/>
@@ -230,10 +255,13 @@
                             <outlet property="delegate" destination="WLD-0b-bfY" id="mCq-38-T1V"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="N5K-Pw-ISE" kind="show" identifier="landmarkSegue" id="XHm-XQ-Alg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x76-DV-qBA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2038" y="448"/>
+            <point key="canvasLocation" x="2050" y="454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DMV-lr-NZ5">
@@ -257,4 +285,7 @@
     <resources>
         <image name="metro" width="312.40676879882812" height="312.40676879882812"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="XHm-XQ-Alg"/>
+    </inferredMetricsTieBreakers>
 </document>
