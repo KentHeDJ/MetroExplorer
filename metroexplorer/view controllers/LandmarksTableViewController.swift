@@ -8,16 +8,24 @@
 
 import UIKit
 import MBProgressHUD
+import CoreLocation
 
 class LandmarksTableViewController: UITableViewController {
     let fetchLandmarksManager = FetchLandmarksManager()
     let locationDetector = LocationDetector()
+    let fetchMetroStationsManage = FetchMetroStationsManager()
     
     var index = 1
     var flag:Bool = false
     var latitude: Double = 0
     var longitude: Double = 0
     var fromMetro:Bool = false
+    
+    var metroStations = [MetroStation]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     var landmarks = [Landmark]() {
         didSet {
@@ -32,6 +40,10 @@ class LandmarksTableViewController: UITableViewController {
         
         fetchLandmarksManager.delegate = self
         locationDetector.delegate = self
+        
+        
+        fetchMetroStationsManage.delegate = self
+        fetchMetroStationsManage.fetchMetroStations()
         
         if fromMetro == true {
             fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
@@ -127,7 +139,23 @@ class LandmarksTableViewController: UITableViewController {
 
 extension LandmarksTableViewController: LocationDetectorDelegate {
     func locationDetected(latitude: Double, longitude: Double) {
-        fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
+        
+        let coordinate1 = CLLocation(latitude: latitude, longitude: longitude)
+        var distance:Double = 100000
+        var targetLat:Double = 0
+        var targetLon:Double = 0
+        
+        for metrostation in metroStations {
+            let coordinate2 = CLLocation(latitude: metrostation.latitude, longitude: metrostation.longitude)
+            let metroDistance = coordinate1.distance(from: coordinate2)
+            if metroDistance < distance {
+                distance = metroDistance
+                targetLat = metrostation.latitude
+                targetLon = metrostation.longitude
+            }
+        }
+        
+        fetchLandmarksManager.fetchLandmarks(latitude: targetLat, longitude: targetLon)
     }
     
     func locationNotDetected() {
@@ -177,5 +205,21 @@ extension LandmarksTableViewController: FetchLankmarksDelegate {
             
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+}
+
+extension LandmarksTableViewController: FetchMetroStationsDelegate {
+    func metroStationsFound(_ metroStations: [MetroStation]) {
+        print("metro stations found - here they are in the controller")
+        
+        DispatchQueue.main.async {
+            self.metroStations = metroStations
+
+        }
+    }
+    
+    func metroStationsNotFound() {
+        print("no metro stations found")
+
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LandmarkDetailViewController: UIViewController {
     
@@ -23,7 +24,7 @@ class LandmarkDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         landmarkNameLabel?.text = name
         landmarkAddressLabel?.text = address
         landmarkRatingLabel?.text = String(rating)
@@ -53,4 +54,17 @@ class LandmarkDetailViewController: UIViewController {
         PersistenceManager.sharedInstance.deleteLandmark(id: landmark.id)
     }
     
+    @IBAction func directionButtonPressed(_ sender: Any) {
+        print("direction button click")
+        let landmark = Landmark(id: id, name: name, image: image, address: address, rating: rating)
+        let daddr = landmark.address.replacingOccurrences(of: " ", with: "+")
+        
+        let url = "http://maps.apple.com/t=r&daddr=\(daddr)"
+        guard let openUrl = URL(string: url) else {
+            return
+        }
+        UIApplication.shared.open(openUrl, options: [:], completionHandler: nil)
+    }
 }
+
+
