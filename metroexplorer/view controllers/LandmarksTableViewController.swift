@@ -34,7 +34,7 @@ class LandmarksTableViewController: UITableViewController {
         }
     }
     
-    let favoritesLandmarks = PersistenceManager.sharedInstance.fetchLandmarks()
+    var favoritesLandmarks = PersistenceManager.sharedInstance.fetchLandmarks()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,19 +47,20 @@ class LandmarksTableViewController: UITableViewController {
             fetchMetroStationsManage.fetchMetroStations()
         }
         
-        //distinguish from nearest button or metro stastion list screen
-        if fromMetro == true {
+        //distinguish from nearest button or metro stastion list screen or favorite button
+        if fromMetro == true || flag == true {
             fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
         }
         else {
             fetchLandmarks()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        favoritesLandmarks = PersistenceManager.sharedInstance.fetchLandmarks()
+        self.tableView.reloadData()
     }
     
     
@@ -101,7 +102,7 @@ class LandmarksTableViewController: UITableViewController {
             //from favorites button
             let favoritesLandmark = favoritesLandmarks[indexPath.row]
             
-            //displaied information
+            //displayed information
             cell.landmarkNameLabel.text = favoritesLandmark.name
             cell.landmarkAddressLabel.text = favoritesLandmark.address
             
@@ -182,7 +183,12 @@ extension LandmarksTableViewController: LocationDetectorDelegate {
         }
         
         //set metro station name to the screen title
-        self.title = "Station: " + metroTitle
+        if flag == false {
+            self.title = "Station: " + metroTitle
+        }
+        else {
+            self.title = "Favorites"
+        }
         
         fetchLandmarksManager.fetchLandmarks(latitude: targetLat, longitude: targetLon)
     }

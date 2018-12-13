@@ -28,9 +28,6 @@ class LocationDetector: NSObject {
         locationManager.delegate = self
     }
     
-//    let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(findLocation), userInfo: nil, repeats: false)
-//
-//    @objc
     func findLocation() {
         let permissionStatus = CLLocationManager.authorizationStatus()
         
@@ -57,7 +54,6 @@ extension LocationDetector: CLLocationManagerDelegate {
         //do something with the locaiton
         if let location = locations.last {
             self.locationManager.stopUpdatingLocation()
-            //timer.invalidate()
             
             delegate?.locationDetected(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         }

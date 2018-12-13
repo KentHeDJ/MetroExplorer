@@ -155,22 +155,22 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="deq-Xz-qHa">
-                                <rect key="frame" x="145" y="84" width="63" height="79.5"/>
+                                <rect key="frame" x="145" y="84" width="220" height="79.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-1G-QT5">
-                                        <rect key="frame" x="0.0" y="0.0" width="63" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-1G-QT5">
+                                        <rect key="frame" x="0.0" y="0.0" width="220" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYg-fw-uVn">
-                                        <rect key="frame" x="0.0" y="29.5" width="63" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="29.5" width="220" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfh-9W-tCH">
-                                        <rect key="frame" x="0.0" y="59" width="63" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="59" width="220" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -196,6 +196,7 @@
                             <constraint firstItem="X0R-Qa-lt2" firstAttribute="top" secondItem="iXt-T2-i1X" secondAttribute="bottom" constant="15" id="8zl-h4-mcD"/>
                             <constraint firstItem="iXt-T2-i1X" firstAttribute="leading" secondItem="Ihr-q6-mKI" secondAttribute="leading" constant="15" id="IgE-aj-GeV"/>
                             <constraint firstItem="iXt-T2-i1X" firstAttribute="top" secondItem="Ihr-q6-mKI" secondAttribute="top" constant="20" id="Lpj-5U-HPc"/>
+                            <constraint firstItem="Ihr-q6-mKI" firstAttribute="trailing" secondItem="deq-Xz-qHa" secondAttribute="trailing" constant="10" id="cRD-Pg-thd"/>
                             <constraint firstItem="X0R-Qa-lt2" firstAttribute="leading" secondItem="Ihr-q6-mKI" secondAttribute="leading" constant="15" id="fnh-Z7-01u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ihr-q6-mKI"/>

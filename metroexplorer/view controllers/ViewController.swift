@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ViewController: UIViewController {
     
     var flag:Bool = false
+    var locationManager: CLLocationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        locationManager.requestWhenInUseAuthorization()
     }
 
     @IBAction func nearestButtonPressed(_ sender: Any) {

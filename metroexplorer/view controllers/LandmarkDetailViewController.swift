@@ -26,9 +26,9 @@ class LandmarkDetailViewController: UIViewController {
         super.viewDidLoad()
         
         //display landmark detail
-        landmarkNameLabel?.text = name
-        landmarkAddressLabel?.text = address
-        landmarkRatingLabel?.text = String(rating)
+        landmarkNameLabel?.text = "Name: " + name
+        landmarkAddressLabel?.text = "Address: " + address
+        landmarkRatingLabel?.text = "Rate: " + String(rating)
         
         if let imageUrlString = image, let url = URL(string: imageUrlString) {
             landmarkImage.load(url: url)
