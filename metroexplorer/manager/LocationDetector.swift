@@ -18,8 +18,9 @@ protocol LocationDetectorDelegate {
 class LocationDetector: NSObject {
     
     let locationManager = CLLocationManager()
-    
     var delegate: LocationDetectorDelegate?
+    
+    var locationTimer: Timer!
     
     override init() {
         super.init()
@@ -27,11 +28,14 @@ class LocationDetector: NSObject {
         locationManager.delegate = self
     }
     
+//    let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(findLocation), userInfo: nil, repeats: false)
+//
+//    @objc
     func findLocation() {
         let permissionStatus = CLLocationManager.authorizationStatus()
         
+        //deal with differnt of permission status
         switch(permissionStatus) {
-            
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
@@ -44,13 +48,16 @@ class LocationDetector: NSObject {
             locationManager.requestLocation()
         }
     }
+    
+    
 }
 
 extension LocationDetector: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //do something with the locaiton
         if let location = locations.last {
-            locationManager.stopUpdatingLocation()
+            self.locationManager.stopUpdatingLocation()
+            //timer.invalidate()
             
             delegate?.locationDetected(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         }

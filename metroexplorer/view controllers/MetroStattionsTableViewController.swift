@@ -25,8 +25,10 @@ class MetroStattionsTableViewController: UITableViewController {
         let fetchMetroStationsManage = FetchMetroStationsManager()
         fetchMetroStationsManage.delegate = self
         
+        //loading dialog
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
+        //get metro station list
         fetchMetroStationsManage.fetchMetroStations()
 
     }
@@ -48,6 +50,7 @@ class MetroStattionsTableViewController: UITableViewController {
         
         let metroStation = metroStations[indexPath.row]
         
+        //display metro station name
         cell.metroStationNameLabel.text = metroStation.name
         
         return cell
@@ -56,15 +59,20 @@ class MetroStattionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         index = indexPath.row
         print("metro station click")
+        
+        //direct to lankmark screen
         performSegue(withIdentifier: "landmarkSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is LandmarksTableViewController
         {
+            //pass latitude and longitude to landmakrTableViewController
             let vc = segue.destination as? LandmarksTableViewController
             vc?.latitude = metroStations[index].latitude
             vc?.longitude = metroStations[index].longitude
+            
+            //identify from metro station list screen
             vc?.fromMetro = true
         }
     }
@@ -78,6 +86,7 @@ extension MetroStattionsTableViewController: FetchMetroStationsDelegate {
         DispatchQueue.main.async {
             self.metroStations = metroStations
             
+            //stop loading dialog
             MBProgressHUD.hide(for: self.view, animated: true)
         }
     }

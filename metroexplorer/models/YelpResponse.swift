@@ -28,7 +28,6 @@ struct Businesses: Codable {
     let categories: [Categories]
     let rating: Double
     let coordinates: Coordinates
-    //let transactions: [Any] // TODO: Please provide a codable type, because Any isn't one.
     let location: Location
     let phone: String?
     let displayPhone: String?
@@ -45,7 +44,6 @@ struct Businesses: Codable {
         case categories
         case rating
         case coordinates
-        //case transactions
         case location
         case phone
         case displayPhone = "display_phone"

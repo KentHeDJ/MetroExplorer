@@ -17,6 +17,7 @@ class FetchMetroStationsManager {
     
     var delegate: FetchMetroStationsDelegate?
     
+    //call WMATA API
     func fetchMetroStations() {
         var urlComponents = URLComponents(string: "https://api.wmata.com/Rail.svc/json/jStations")!
         
@@ -70,17 +71,15 @@ class FetchMetroStationsManager {
                     metroStations.append(metroStation)
                 }
                 
-                print(metroStations)
-                
                 self.delegate?.metroStationsFound(metroStations)
                 
             } catch let error {
                 print("codable fail - bad data format")
+                //if show above message,set breakpoint here to debug
                 print(error.localizedDescription)
                 
                 self.delegate?.metroStationsNotFound()
             }
-            
         }
         
         print("execute request")

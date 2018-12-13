@@ -20,6 +20,7 @@ class LandmarksTableViewController: UITableViewController {
     var latitude: Double = 0
     var longitude: Double = 0
     var fromMetro:Bool = false
+    var metroTitle: String = ""
     
     var metroStations = [MetroStation]() {
         didSet {
@@ -40,11 +41,13 @@ class LandmarksTableViewController: UITableViewController {
         
         fetchLandmarksManager.delegate = self
         locationDetector.delegate = self
-        
-        
         fetchMetroStationsManage.delegate = self
-        fetchMetroStationsManage.fetchMetroStations()
         
+        if flag == false {
+            fetchMetroStationsManage.fetchMetroStations()
+        }
+        
+        //distinguish from nearest button or metro stastion list screen
         if fromMetro == true {
             fetchLandmarksManager.fetchLandmarks(latitude: latitude, longitude: longitude)
         }
@@ -54,8 +57,17 @@ class LandmarksTableViewController: UITableViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    
+    
     private func fetchLandmarks() {
+        //loading dialog
         MBProgressHUD.showAdded(to: self.view, animated: true)
+        //get current location
         locationDetector.findLocation()
     }
 
@@ -68,6 +80,8 @@ class LandmarksTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
+        //distingguish from nearest button or favorites button
         if flag == false {
             return landmarks.count
         } else {
@@ -84,8 +98,10 @@ class LandmarksTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "landmarkCell", for: indexPath) as! LandmarkTableViewCell
         
         if flag == true {
+            //from favorites button
             let favoritesLandmark = favoritesLandmarks[indexPath.row]
             
+            //displaied information
             cell.landmarkNameLabel.text = favoritesLandmark.name
             cell.landmarkAddressLabel.text = favoritesLandmark.address
             
@@ -94,8 +110,10 @@ class LandmarksTableViewController: UITableViewController {
             }
             
         } else {
+            //from nearest button
             let landmark = landmarks[indexPath.row]
             
+            //displaied information
             cell.landmarkNameLabel.text = landmark.name
             cell.landmarkAddressLabel.text = landmark.address
             
@@ -109,24 +127,29 @@ class LandmarksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //mark the index of cell
         index = indexPath.row
         
+        //direct to landmark detail screen
         print("landmark detail cell click")
         performSegue(withIdentifier: "landmarkDetailSegue", sender: self)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is LandmarkDetailViewController && flag == false
         {
+            //from nearest
             let vc = segue.destination as? LandmarkDetailViewController
+            //pass data to detail page
             vc?.id = landmarks[index].id
             vc?.name = landmarks[index].name
             vc?.address = landmarks[index].address
             vc?.rating = landmarks[index].rating
             vc?.image = landmarks[index].image ?? ""
         } else {
+            //from favorite
             let vc = segue.destination as? LandmarkDetailViewController
+            //pass data to detail page
             vc?.id = landmarks[index].id
             vc?.name = favoritesLandmarks[index].name
             vc?.address = favoritesLandmarks[index].address
@@ -140,11 +163,13 @@ class LandmarksTableViewController: UITableViewController {
 extension LandmarksTableViewController: LocationDetectorDelegate {
     func locationDetected(latitude: Double, longitude: Double) {
         
+        //current lcoation
         let coordinate1 = CLLocation(latitude: latitude, longitude: longitude)
         var distance:Double = 100000
         var targetLat:Double = 0
         var targetLon:Double = 0
         
+        //compare with the distance to all the metro stations in list and get the nearest one
         for metrostation in metroStations {
             let coordinate2 = CLLocation(latitude: metrostation.latitude, longitude: metrostation.longitude)
             let metroDistance = coordinate1.distance(from: coordinate2)
@@ -152,8 +177,12 @@ extension LandmarksTableViewController: LocationDetectorDelegate {
                 distance = metroDistance
                 targetLat = metrostation.latitude
                 targetLon = metrostation.longitude
+                metroTitle = metrostation.name
             }
         }
+        
+        //set metro station name to the screen title
+        self.title = "Station: " + metroTitle
         
         fetchLandmarksManager.fetchLandmarks(latitude: targetLat, longitude: targetLon)
     }
@@ -162,8 +191,6 @@ extension LandmarksTableViewController: LocationDetectorDelegate {
         print("no location found")
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.view, animated: true)
-            
-            //TODO: Show a AlertController with error
         }
     }
 }
@@ -174,7 +201,6 @@ extension LandmarksTableViewController: FetchLankmarksDelegate {
         
         DispatchQueue.main.async {
             self.landmarks = landmarks
-            
             MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
@@ -184,8 +210,10 @@ extension LandmarksTableViewController: FetchLankmarksDelegate {
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.view, animated: true)
             
+            //display alert to user when probem comes up
             let alertController = UIAlertController(title: "Problem fetching landmarks", message: reason.rawValue, preferredStyle: .alert)
             
+            //provide retry option for user
             switch(reason) {
             case .noResponse:
                 let retryAction = UIAlertAction(title: "Retry", style: .default, handler: { (action) in

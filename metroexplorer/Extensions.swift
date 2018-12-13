@@ -10,6 +10,7 @@ import Foundation
 
 import UIKit
 
+//load image
 extension UIImageView {
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in

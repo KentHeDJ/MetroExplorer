@@ -15,6 +15,7 @@ protocol  FetchLankmarksDelegate {
 
 class FetchLandmarksManager {
     
+    //call Yelp API
     enum FailureReason: String {
         case noResponse = "No response received" //allow the user to try again
         case non200Response = "Bad response" //give up
@@ -24,6 +25,7 @@ class FetchLandmarksManager {
     
     var delegate: FetchLankmarksDelegate?
     
+    //give customized latitude and longtitude for url
     func fetchLandmarks(latitude: Double, longitude: Double) {
         var urlComponents = URLComponents(string: "https://api.yelp.com/v3/businesses/search")!
         
@@ -79,8 +81,8 @@ class FetchLandmarksManager {
                 var landmarks = [Landmark]()
                 
                 for business in yelpResponse.businesses {
-                    //let name = business.name
                     let address = business.location.displayAddress.joined(separator: " ")
+                    //handle optional case
                     var imageUrl: String? = nil
                     imageUrl = business.imageUrl
                     
@@ -92,12 +94,11 @@ class FetchLandmarksManager {
                 self.delegate?.landmarksFound(landmarks)
                 
             } catch let error {
-
+                //set breakpoint for debug
                 print(error.localizedDescription)
                 
                 self.delegate?.landmarksNotFound(reason: .badData)
             }
-            
         }
         
         print("execute request")

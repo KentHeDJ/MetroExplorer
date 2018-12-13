@@ -177,10 +177,13 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0R-Qa-lt2">
-                                <rect key="frame" x="25" y="242" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Direction"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0R-Qa-lt2">
+                                <rect key="frame" x="15" y="249" width="79" height="36"/>
+                                <color key="backgroundColor" red="0.17888076269423325" green="0.47279379242262898" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Direction">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="directionButtonPressed:" destination="OBy-iW-M87" eventType="touchUpInside" id="igm-4H-Mpc"/>
                                 </connections>
@@ -190,8 +193,10 @@
                         <constraints>
                             <constraint firstItem="deq-Xz-qHa" firstAttribute="leading" secondItem="iXt-T2-i1X" secondAttribute="trailing" constant="10" id="2VQ-fo-kRJ"/>
                             <constraint firstItem="deq-Xz-qHa" firstAttribute="top" secondItem="Ihr-q6-mKI" secondAttribute="top" constant="20" id="4Nh-QK-z06"/>
+                            <constraint firstItem="X0R-Qa-lt2" firstAttribute="top" secondItem="iXt-T2-i1X" secondAttribute="bottom" constant="15" id="8zl-h4-mcD"/>
                             <constraint firstItem="iXt-T2-i1X" firstAttribute="leading" secondItem="Ihr-q6-mKI" secondAttribute="leading" constant="15" id="IgE-aj-GeV"/>
                             <constraint firstItem="iXt-T2-i1X" firstAttribute="top" secondItem="Ihr-q6-mKI" secondAttribute="top" constant="20" id="Lpj-5U-HPc"/>
+                            <constraint firstItem="X0R-Qa-lt2" firstAttribute="leading" secondItem="Ihr-q6-mKI" secondAttribute="leading" constant="15" id="fnh-Z7-01u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ihr-q6-mKI"/>
                     </view>

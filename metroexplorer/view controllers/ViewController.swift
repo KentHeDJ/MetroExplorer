@@ -19,6 +19,8 @@ class ViewController: UIViewController {
 
     @IBAction func nearestButtonPressed(_ sender: Any) {
         print("nearest pressed")
+        
+        //idnetify from nearest
         flag = false
         performSegue(withIdentifier: "favoritesSegue", sender: self)
     }
@@ -34,6 +36,7 @@ class ViewController: UIViewController {
         if segue.destination is LandmarksTableViewController && flag == true
         {
             let vc = segue.destination as? LandmarksTableViewController
+            //identify from favorites
             vc?.flag = true
         }
         

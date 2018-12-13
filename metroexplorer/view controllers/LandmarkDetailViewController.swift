@@ -25,6 +25,7 @@ class LandmarkDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //display landmark detail
         landmarkNameLabel?.text = name
         landmarkAddressLabel?.text = address
         landmarkRatingLabel?.text = String(rating)
@@ -35,6 +36,7 @@ class LandmarkDetailViewController: UIViewController {
         
     }
     
+    //share function
     @IBAction func shareButtonPressed(_ sender: Any) {
         
         let shareText = "Hello! Please check this wonderful landmark: \n Name: \(name) \n Address: \(address) \n Rating: \(rating)!!!"
@@ -44,25 +46,30 @@ class LandmarkDetailViewController: UIViewController {
         present(activityViewController, animated: true, completion: nil)
     }
     
+    //favor landmark
     @IBAction func saveButtonPressed(_ sender: Any) {
         let landmark = Landmark(id: id, name: name, image: image, address: address, rating: rating)
         PersistenceManager.sharedInstance.saveLandmark(landmark: landmark)
     }
     
+    //unfavor lanmark
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let landmark = Landmark(id: id, name: name, image: image, address: address, rating: rating)
-        PersistenceManager.sharedInstance.deleteLandmark(id: landmark.id)
+        PersistenceManager.sharedInstance.deleteLandmark(name: landmark.name)
     }
     
+    //public transpotation direction from current spot to landmark address
     @IBAction func directionButtonPressed(_ sender: Any) {
         print("direction button click")
         let landmark = Landmark(id: id, name: name, image: image, address: address, rating: rating)
+        //pre-processing url format
         let daddr = landmark.address.replacingOccurrences(of: " ", with: "+")
         
         let url = "http://maps.apple.com/t=r&daddr=\(daddr)"
         guard let openUrl = URL(string: url) else {
             return
         }
+        //open url
         UIApplication.shared.open(openUrl, options: [:], completionHandler: nil)
     }
 }

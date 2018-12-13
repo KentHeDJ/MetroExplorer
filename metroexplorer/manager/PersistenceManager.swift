@@ -13,11 +13,19 @@ class PersistenceManager {
     
     let landmarksKey = "landmarks"
     
+    //avoid repeated lankmark saved
     func saveLandmark(landmark: Landmark) {
         let userDefaults = UserDefaults.standard
         
         var landmarks = fetchLandmarks()
+        
+        for lm in landmarks {
+            if lm.name == landmark.name {
+                return
+            }
+        }
         landmarks.append(landmark)
+        
         
         let encoder = JSONEncoder()
         let encodedLandmarks = try? encoder.encode(landmarks)
@@ -37,16 +45,22 @@ class PersistenceManager {
         }
     }
     
-    func deleteLandmark(id: String){
+    func deleteLandmark(name: String){
         let userDefaults = UserDefaults.standard
         
         var landmarks = fetchLandmarks()
         
-//        for lm in landmarks {
-//            if lm.id == id {
-//                let index1 = landmarks.index { $0.id == id}
-//            }
-//        }
-//        landmarks.remove(at: index1)
+        //retrive index of certain landmark
+        for (index, element) in landmarks.enumerated() {
+            if element.name == name {
+                landmarks.remove(at: index)
+            }
+        }
+        
+        let encoder = JSONEncoder()
+        let encodedLandmarks = try? encoder.encode(landmarks)
+        
+        userDefaults.set(encodedLandmarks, forKey: landmarksKey)
+        
     }
 }
